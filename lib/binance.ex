@@ -443,7 +443,7 @@ defmodule Binance do
       when is_binary(from)
       when is_binary(to) do
     case find_symbol(symbol) do
-      {:ok, binance_symbol} -> order_limit_sell(binance_symbol, quantity, price, time_in_force)
+      {:ok, binance_symbol} -> order_limit_sell(binance_symbol, quantity, price)
       e -> e
     end
   end
@@ -452,7 +452,7 @@ defmodule Binance do
       when is_binary(symbol)
       when is_number(quantity)
       when is_number(price) do
-    create_order(symbol, "SELL", "LIMIT_MAKER", quantity, price, time_in_force)
+    create_order(symbol, "SELL", "LIMIT_MAKER", quantity, price)
     |> parse_order_response
   end
 

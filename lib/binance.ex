@@ -419,7 +419,7 @@ defmodule Binance do
       when is_binary(symbol)
       when is_number(quantity)
       when is_number(price) do
-    create_order(symbol, "BUY", "LIMIT", quantity, price, time_in_force)
+    create_order(symbol, "BUY", "LIMIT_MAKER", quantity, price, time_in_force)
     |> parse_order_response
   end
 
@@ -452,7 +452,7 @@ defmodule Binance do
       when is_binary(symbol)
       when is_number(quantity)
       when is_number(price) do
-    create_order(symbol, "SELL", "LIMIT", quantity, price, time_in_force)
+    create_order(symbol, "SELL", "LIMIT_MAKER", quantity, price, time_in_force)
     |> parse_order_response
   end
 

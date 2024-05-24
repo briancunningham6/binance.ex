@@ -378,8 +378,10 @@ defmodule Binance do
       |> Map.merge(
         unless(is_nil(iceberg_quantity), do: %{icebergQty: iceberg_quantity}, else: %{})
       )
-      |> Map.merge(unless(is_nil(time_in_force), do: %{timeInForce: time_in_force}, else: %{}))
       |> Map.merge(unless(is_nil(price), do: %{price: format_price(price)}, else: %{}))
+
+      IO.puts('THERRE SHOULD BE NO TIME IN STATE PARAMETER')
+      IO.inspect(arguments)
 
     case HTTPClient.signed_request_binance("/api/v3/order", arguments, :post) do
       {:ok, %{"code" => code, "msg" => msg}} ->

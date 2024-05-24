@@ -388,6 +388,8 @@ defmodule Binance do
         {:error, {:binance_error, %{code: code, msg: msg}}}
 
       data ->
+        IO.puts('RESPONSE OF REQLEST')
+        IO.inspect(data)
         data
     end
   end

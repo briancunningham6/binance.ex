@@ -378,6 +378,7 @@ defmodule Binance do
       |> Map.merge(
         unless(is_nil(iceberg_quantity), do: %{icebergQty: iceberg_quantity}, else: %{})
       )
+      |> Map.merge(unless(is_nil(time_in_force), do: %{timeInForce: time_in_force}, else: %{}))
       |> Map.merge(unless(is_nil(price), do: %{price: format_price(price)}, else: %{}))
 
     case HTTPClient.signed_request_binance("/api/v3/order", arguments, :post) do
@@ -442,7 +443,7 @@ defmodule Binance do
       when is_binary(from)
       when is_binary(to) do
     case find_symbol(symbol) do
-      {:ok, binance_symbol} -> order_limit_sell(binance_symbol, quantity, price)
+      {:ok, binance_symbol} -> order_limit_sell(binance_symbol, quantity, price, nil)
       e -> e
     end
   end
@@ -451,7 +452,7 @@ defmodule Binance do
       when is_binary(symbol)
       when is_number(quantity)
       when is_number(price) do
-    create_order(symbol, "SELL", "LIMIT_MAKER", quantity, price)
+    create_order(symbol, "SELL", "LIMIT_MAKER", quantity, price, nil)
     |> parse_order_response
   end
 

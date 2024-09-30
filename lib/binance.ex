@@ -380,16 +380,11 @@ defmodule Binance do
       )
       |> Map.merge(unless(is_nil(price), do: %{price: format_price(price)}, else: %{}))
 
-      IO.puts('THERRE SHOULD BE NO TIME IN STATE PARAMETER')
-      IO.inspect(arguments)
-
     case HTTPClient.signed_request_binance("/api/v3/order", arguments, :post) do
       {:ok, %{"code" => code, "msg" => msg}} ->
         {:error, {:binance_error, %{code: code, msg: msg}}}
 
       data ->
-        IO.puts('RESPONSE OF REQLEST')
-        IO.inspect(data)
         data
     end
   end

@@ -516,14 +516,14 @@ defmodule Binance do
   end
 
   defp parse_order_response({
-    :error,
-    {
-      :binance_error,
-      %{code: -2010, msg: "Order would immediately match and take."} = reason
-    }
-  }) do
- {:error, %Binance.OrderMatchError{reason: reason}}
-end
+        :error,
+        {
+          :binance_error,
+          %{code: -2010, msg: "Order would immediately match and take."} = reason
+        }
+      }) do
+    {:error, %Binance.OrderMatchError{reason: reason}}
+  end
 
   # Misc
 

@@ -515,6 +515,16 @@ defmodule Binance do
     {:error, %Binance.InsufficientBalanceError{reason: reason}}
   end
 
+  defp parse_order_response({
+    :error,
+    {
+      :binance_error,
+      %{code: -2010, msg: "Order would immediately match and take."} = reason
+    }
+  }) do
+ {:error, %Binance.OrderMatchError{reason: reason}}
+end
+
   # Misc
 
   defp format_price(num) when is_float(num), do: :erlang.float_to_binary(num, [{:decimals, 8}])

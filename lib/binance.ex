@@ -525,6 +525,15 @@ defmodule Binance do
     {:error, %Binance.OrderMatchError{reason: reason}}
   end
 
+  defp parse_order_response({
+      :error,
+      {
+        :binance_error,
+        %{code: -1013, msg: "Filter failure: PERCENT_PRICE_BY_SIDE"} = reason
+      }
+    }) do
+    {:error, %Binance.FilterFailureError{reason: reason}}
+  end
   # Misc
 
   defp format_price(num) when is_float(num), do: :erlang.float_to_binary(num, [{:decimals, 8}])

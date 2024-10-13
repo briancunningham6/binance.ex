@@ -534,6 +534,16 @@ defmodule Binance do
     }) do
     {:error, %Binance.FilterFailureError{reason: reason}}
   end
+
+  defp parse_order_response({
+    :error,
+    {
+      :binance_error,
+      %{code: -1021, msg: "Timestamp for this request is outside of the recvWindow."} = reason
+    }
+  }) do
+  {:error, %Binance.FilterFailureError{reason: reason}}
+end
   # Misc
 
   defp format_price(num) when is_float(num), do: :erlang.float_to_binary(num, [{:decimals, 8}])

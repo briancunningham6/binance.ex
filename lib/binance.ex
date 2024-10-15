@@ -512,7 +512,7 @@ defmodule Binance do
            %{code: -2010, msg: "Account has insufficient balance for requested action."} = reason
          }
        }) do
-    {:error, %Binance.InsufficientBalanceError{reason: reason}}
+        {:ok, Binance.OrderResponse.new(response)}
   end
 
   defp parse_order_response({
